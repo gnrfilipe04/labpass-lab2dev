@@ -9,8 +9,9 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#070808"
     },
+    "scheme": "labpass",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -23,11 +24,18 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#070808"
+      },
+      "package": "com.gnrfilipe04.labpass"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "027e3dd5-5876-4f66-8d31-3227cd231937"
+      }
+    },
+    "owner": "gnrfilipe04"
   }
 }
