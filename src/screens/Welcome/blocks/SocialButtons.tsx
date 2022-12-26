@@ -35,7 +35,7 @@ export function SocialButtons({ loginEnable, }: SocialButtonsProps){
     setIsOpenErrorLogin(false)
   }
 
-  const { onLoginGoogle, } = useGoogleSignIn({
+  const { onLoginGoogle, request,} = useGoogleSignIn({
     clientId: GOOGLE_WEB_CLIENT_ID,
     iosClientId: GOOGLE_IOS_CLIENT_ID,
     androidClientId: GOOGLE_ANDROID_CLIENT_ID,
@@ -54,7 +54,7 @@ export function SocialButtons({ loginEnable, }: SocialButtonsProps){
       >
         <MyButton
           title='Continuar com Google'
-          disable={!loginEnable}
+          disable={!loginEnable || !request}
           iconSize={30}
           leftIcon={<MaterialCommunityIcons name={'google'}/>}
           leftIconColor={'primary.300'}
@@ -63,7 +63,10 @@ export function SocialButtons({ loginEnable, }: SocialButtonsProps){
           onPress={() => {
             setLoading(true)
             onLoginGoogle()
-              .then((session) => session?.type === 'success' && navigate('home'))
+              .then((session) => {
+                //console.log({session,})
+                session?.type === 'success' && navigate('home')
+              })
               .catch(() => setIsOpenErrorLogin(true))
               .finally(() => setLoading(false))
           }}

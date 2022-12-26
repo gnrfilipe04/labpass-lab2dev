@@ -35,7 +35,7 @@ export function Form(){
     category: yup.string().required('Categoria é obrigatória'),
     description: yup.string().required('Descrição é obrigatória'),
     password: yup.string().required('Senha obrigatória')
-      .min(6, 'No mínimo 6 caracteres')
+      .min(4, 'No mínimo 4 caracteres')
       .max(20, 'No máximo 20 caracteres')
       .default(passGenerated),
   })
@@ -102,7 +102,7 @@ export function Form(){
             secureTextEntry={!showPass}
             InputRightElement={
               <Pressable onPress={() => setShowPass(!showPass)}>
-                <Icon as={<MaterialCommunityIcons name={showPass ? 'eye-outline' : 'eye-off-outline'} />} size={5} mr="2" color="secondary.500"/>
+                <Icon as={<MaterialCommunityIcons name={!showPass ? 'eye-outline' : 'eye-off-outline'} />} size={5} mr="2" color="secondary.500"/>
               </Pressable>}
             placeholder="Senha"
             name='password'

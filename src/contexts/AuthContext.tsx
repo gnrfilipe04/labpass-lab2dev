@@ -36,7 +36,6 @@ export function AuthProvider ({ children, }: AuthProviderProps) {
   }
 
   useEffect(() => {
-
     loadUser()
       .then(saveUserCredential)
       .catch(console.log)

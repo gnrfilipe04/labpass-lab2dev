@@ -57,7 +57,7 @@ export function ListItem({
   return (
     <HStack bg={'secondary.900'} space={'10px'} alignItems={'flex-end'}  justifyContent={'space-between'} >
       <HStack alignItems={'center'} space={'10px'} >
-        <Icon as={MaterialCommunityIcons}name={iconName} color={iconColor} size={45} />
+        <Icon as={MaterialCommunityIcons} name={iconName} color={iconColor} size={30} />
         <VStack w={'195px'} maxW={'195px'}>
           <Text fontSize={'14px'} fontFamily={'Inter_400Regular'} color={'secondary.500'}>{title}</Text>
           <Text

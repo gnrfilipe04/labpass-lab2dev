@@ -4,19 +4,19 @@ import { SocialIconsDTO } from '../dtos/SocialIconsDTO'
 export const socialIcons: Record<string, SocialIconsDTO> = {
   'E-mail': {
     iconName: 'email',
-    iconColor: '#D9D9D9',
+    iconColor: '#71717a',
   },
   'Cartão de crédito': {
     iconName: 'credit-card',
-    iconColor: '#752D97',
+    iconColor: '#71717a',
   },
   'Conta bancária': {
-    iconName: 'account-cash',
-    iconColor: '#3FDC6B',
+    iconName: 'bank',
+    iconColor: '#71717a',
   },
-  'Conta de acesso': {
+  'Outros': {
     iconName: 'account-arrow-right',
-    iconColor: '#E2DB32',
+    iconColor: '#71717a',
   },  
   'Wifi': {
     iconName: 'wifi-strength-3',
@@ -24,7 +24,7 @@ export const socialIcons: Record<string, SocialIconsDTO> = {
   },
   'Streaming': {
     iconName: 'youtube-tv',
-    iconColor: '#DB3D3D',
+    iconColor: '#71717a',
   },
   'Netflix': {
     iconName: 'netflix',
