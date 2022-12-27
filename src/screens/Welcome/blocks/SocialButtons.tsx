@@ -10,6 +10,7 @@ import { ActivityIndicator, Platform } from 'react-native'
 import { MotiView } from 'moti'
 
 import * as WebBrowser from 'expo-web-browser'
+import { useFacebookSignIn } from '../../../hooks/useFacebookSignIn'
 
 interface SocialButtonsProps {
   loginEnable: boolean
@@ -34,6 +35,8 @@ export function SocialButtons({ loginEnable, }: SocialButtonsProps){
   const onConfirmErrorLogin = () => {
     setIsOpenErrorLogin(false)
   }
+
+  const { onLoginFacebook, } = useFacebookSignIn()
 
   const { onLoginGoogle, request,} = useGoogleSignIn({
     clientId: GOOGLE_WEB_CLIENT_ID,
@@ -67,6 +70,33 @@ export function SocialButtons({ loginEnable, }: SocialButtonsProps){
                 //console.log({session,})
                 session?.type === 'success' && navigate('home')
               })
+              .catch(() => setIsOpenErrorLogin(true))
+              .finally(() => setLoading(false))
+          }}
+        />
+      </MotiView>
+
+      <MotiView
+        from={{
+          transform: [ { translateX: -50, }, ],
+        }}
+
+        animate={{
+          transform: [ { translateX: 0, }, ],
+        }}
+      >
+        <MyButton
+          title='Continuar com Facebook'
+          disable={!loginEnable || !request}
+          iconSize={30}
+          leftIcon={<MaterialCommunityIcons name={'facebook'}/>}
+          leftIconColor={'primary.300'}
+          textColor={'white'} 
+          bgColor={'secondary.600'}
+          onPress={() => {
+            setLoading(true)
+            onLoginFacebook()
+              .then(user => user && navigate('home') )
               .catch(() => setIsOpenErrorLogin(true))
               .finally(() => setLoading(false))
           }}
