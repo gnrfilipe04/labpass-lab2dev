@@ -1,8 +1,6 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import { PasswordDTO } from '../dtos/PasswordDTO'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import CryptoES from 'crypto-es'
-import { SECRET_ENCRYPTED } from '@env'
 import { decryptPasswords } from '../utils/decryptPasswords'
 import { encryptPasswords } from '../utils/encryptPasswords'
 
