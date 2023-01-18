@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Center, Text, VStack, HStack } from 'native-base'
+import { Center, Text, VStack, HStack, View } from 'native-base'
 import { Logo } from '../../components/Logo'
 import { useNavigation } from '@react-navigation/native'
 import { usePermission } from '../../hooks/usePermission'
@@ -8,13 +8,16 @@ import { SocialButtons } from './blocks/SocialButtons'
 import { MyAlertDialog } from '../../components/MyAlertDialog'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MotiView } from 'moti'
+import { Visibility } from '../../components/Visibility'
+import { MyButton } from '../../components/MyButton'
+import { useAuth } from '../../contexts/AuthContext'
 
 export function Welcome(){
   const { navigate, } = useNavigation()
+  const { loginEnable, setLoginEnable } = useAuth()
   const { getAuth, getAuthRegister, } = usePermission()
 
   const [ isOpen, setIsOpen, ] = useState(false)
-  const [ loginEnable, setLoginEnable, ] = useState(false)
 
   const cancelRef = useRef(null)
 
@@ -91,6 +94,19 @@ export function Welcome(){
           </MotiView>
         </Center>
         <SocialButtons loginEnable={loginEnable} />
+
+        <Visibility 
+          visible={!loginEnable}
+          children={
+          <View position={'absolute'} bottom={5} left={6} right={6}>
+            <MyButton
+            title='Usar senha do dispositivo'
+            textColor={'white'} 
+            bgColor={'primary.400'}
+            onPress={takeAuthPattern} />
+          </View>}
+        />
+
       </VStack>
     </>
   )
