@@ -25,8 +25,6 @@ export function MyInput<T extends FieldValues>({
   defaultValue,
 }: MyInputProps<T>){
 
-  console.log({ errorMessage })
-
   return (
     <>
       <Controller 
