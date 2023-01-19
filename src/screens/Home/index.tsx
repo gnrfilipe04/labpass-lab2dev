@@ -16,7 +16,7 @@ export function Home(){
   const { navigate, } = useNavigation()
 
   const { userCredential, logout, } = useAuth()
-  const { passwordList, removePassword, } = usePasswords()
+  const { passwordList, removePassword, setPasswordList } = usePasswords()
   
   const { getAuth, } = usePermission()
 
@@ -29,6 +29,7 @@ export function Home(){
   }
 
   const onLogout = () => {
+    setPasswordList([])
     logout()
     navigate('welcome')
 

@@ -3,6 +3,7 @@ import { PasswordDTO } from '../dtos/PasswordDTO'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { decryptPasswords } from '../utils/decryptPasswords'
 import { encryptPasswords } from '../utils/encryptPasswords'
+import { useAuth } from './AuthContext'
 
 interface PasswordsProviderProps {
     children: ReactNode;
@@ -12,12 +13,17 @@ interface PasswordsContext {
   passwordList: PasswordDTO[]
   addPassword: (password: PasswordDTO) => void
   removePassword: (idPassword: string) => void
+  setPasswordList: React.Dispatch<React.SetStateAction<PasswordDTO[]>>
 }
 
 const PasswordsContext = createContext({} as PasswordsContext)
 
 export function PasswordsProvider ({ children, }: PasswordsProviderProps) {
+
+  const { userCredential } = useAuth()
+
   const [ passwordList, setPasswordList, ] = useState<PasswordDTO[]>([])
+  const [ keyPassStorage, setKeyPassStorage, ] = useState<string>('')
 
   function addPassword(password: PasswordDTO){
     setPasswordList([ password,...passwordList, ])
@@ -32,13 +38,13 @@ export function PasswordsProvider ({ children, }: PasswordsProviderProps) {
 
     const passEncrypted = encryptPasswords(passwordList)
 
-    return await AsyncStorage.setItem('@lockpick_passwords', JSON.stringify(passEncrypted))
+    return await AsyncStorage.setItem(keyPassStorage, JSON.stringify(passEncrypted))
 
   }
 
   async function getPassInStorage(){
-    
-    const passwords = await AsyncStorage.getItem('@lockpick_passwords')
+
+    const passwords = await AsyncStorage.getItem(keyPassStorage)
 
     if(!passwords) return
 
@@ -49,11 +55,15 @@ export function PasswordsProvider ({ children, }: PasswordsProviderProps) {
   }
 
   useEffect(() => {
-    getPassInStorage()
-  }, [])
+    userCredential && setKeyPassStorage(`@lockpick_passwords_${userCredential.email}`)
+  }, [userCredential?.email])
 
   useEffect(() => {
-    setPassInStorage()
+    keyPassStorage && getPassInStorage()
+  }, [keyPassStorage])
+
+  useEffect(() => {
+    userCredential && setPassInStorage()
   }, [ passwordList.length, ])
 
   return (
@@ -62,6 +72,7 @@ export function PasswordsProvider ({ children, }: PasswordsProviderProps) {
         passwordList,
         addPassword,
         removePassword,
+        setPasswordList
       }}
     >
       {children}

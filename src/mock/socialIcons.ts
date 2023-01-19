@@ -14,11 +14,7 @@ export const socialIcons: Record<string, SocialIconsDTO> = {
     iconName: 'bank',
     iconColor: '#71717a',
   },
-  'Outros': {
-    iconName: 'account-arrow-right',
-    iconColor: '#71717a',
-  },  
-  'Wifi': {
+  'Wi-fi': {
     iconName: 'wifi-strength-3',
     iconColor: '#22C55E',
   },
@@ -110,4 +106,8 @@ export const socialIcons: Record<string, SocialIconsDTO> = {
     iconName: 'aws',
     iconColor: '#ff9900',
   },
+  'Outros': {
+    iconName: 'account-arrow-right',
+    iconColor: '#71717a',
+  },  
 }

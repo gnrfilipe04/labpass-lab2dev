@@ -29,18 +29,15 @@ export function Form(){
   
   const [ showPass, setShowPass, ] = useState(false)
 
-  const [ passGenerated, setPassGenerated, ] = useState<string | undefined>()
-
   const createUserFormSchema = yup.object().shape({
     category: yup.string().required('Categoria é obrigatória'),
     description: yup.string().required('Descrição é obrigatória'),
     password: yup.string().required('Senha obrigatória')
       .min(4, 'No mínimo 4 caracteres')
       .max(20, 'No máximo 20 caracteres')
-      .default(passGenerated),
   })
 
-  const { handleSubmit, formState: { errors, }, control, } = useForm<FormDataProps>({
+  const { handleSubmit, formState: { errors, }, control, setValue, clearErrors } = useForm<FormDataProps>({
     resolver: yupResolver(createUserFormSchema),
   })
 
@@ -75,7 +72,7 @@ export function Form(){
   }
 
   return (
-    <FormControl isInvalid={Boolean(errors.category || errors.description || errors.password)} isRequired justifyContent={'center'} h={'92%'}>
+    <FormControl isRequired justifyContent={'center'} h={'92%'}>
       <VStack space={'16px'}>
         <PageTitle text={'Nova senha'}/>
         <VStack space={'10px'}>
@@ -96,7 +93,6 @@ export function Form(){
           />
 
           <MyInput
-            defaultValue={passGenerated} 
             control={control}
             type={'password'}
             secureTextEntry={!showPass}
@@ -108,7 +104,11 @@ export function Form(){
             name='password'
             errorMessage={errors.password?.message}
           />
-          <Pressable onPress={() => setPassGenerated(generatePass({ length: 15, }))}>
+
+          <Pressable onPress={() => {
+              setValue('password', generatePass({ length: 15, }))
+              clearErrors('password')
+            }}>
             <Text 
               textAlign={'right'}
               fontFamily={'Inter_400Regular'} 

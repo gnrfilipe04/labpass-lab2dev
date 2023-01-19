@@ -93,7 +93,7 @@ export function Welcome(){
             </VStack>
           </MotiView>
         </Center>
-        <SocialButtons loginEnable={loginEnable} />
+        <SocialButtons />
 
         <Visibility 
           visible={!loginEnable}

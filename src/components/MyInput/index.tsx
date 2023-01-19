@@ -1,6 +1,7 @@
 import React from 'react'
-import { FormControl, Input, WarningOutlineIcon } from 'native-base'
+import { Input } from 'native-base'
 import { Controller, Control, FieldValues, Path  } from 'react-hook-form'
+import { ErrorMessage } from './ErrorMessage';
 
 interface MyInputProps<T extends FieldValues> {
   control: Control<T, any>;
@@ -23,6 +24,9 @@ export function MyInput<T extends FieldValues>({
   type,
   defaultValue,
 }: MyInputProps<T>){
+
+  console.log({ errorMessage })
+
   return (
     <>
       <Controller 
@@ -36,6 +40,7 @@ export function MyInput<T extends FieldValues>({
               borderColor={'secondary.500'}
               selectionColor={'primary.400'}  
               bgColor={'transparent'}
+              isDisabled={Boolean(defaultValue)}
               placeholderTextColor={'secondary.500'}
               fontFamily={'Inter_400Regular'}
               fontSize={'16px'} 
@@ -53,9 +58,7 @@ export function MyInput<T extends FieldValues>({
           )}}
         name={name}
       />
-      {errorMessage && <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-        {errorMessage}
-      </FormControl.ErrorMessage>}
+      {errorMessage && <ErrorMessage message={errorMessage}/>}
     </>
   )
 }

@@ -11,14 +11,13 @@ import { MotiView } from 'moti'
 
 import * as WebBrowser from 'expo-web-browser'
 import { useFacebookSignIn } from '../../../hooks/useFacebookSignIn'
-
-interface SocialButtonsProps {
-  loginEnable: boolean
-}
+import { useAuth } from '../../../contexts/AuthContext'
 
 WebBrowser.maybeCompleteAuthSession()
 
-export function SocialButtons({ loginEnable, }: SocialButtonsProps){
+export function SocialButtons(){
+
+  const { loginEnable } = useAuth()
 
   const { navigate, } = useNavigation()
 
