@@ -1,6 +1,7 @@
 import React from 'react'
-import { FormControl, Input, ISelectItemProps, Select, WarningOutlineIcon } from 'native-base'
+import { Select } from 'native-base'
 import { Controller, Control, FieldValues, Path  } from 'react-hook-form'
+import { ErrorMessage } from '../MyInput/ErrorMessage';
 
 export interface MySelectProps<T extends FieldValues> {
   control: Control<T, any>;
@@ -29,10 +30,10 @@ export function MySelect<T extends FieldValues>({
           <Select
             opacity={1}
             placeholder={placeholder}
-            borderColor={'secondary.500'} 
+            borderColor={errorMessage ? 'error.500' : 'secondary.500'} 
             bgColor={'transparent'}
             fontFamily={'Inter_400Regular'}
-            fontSize={'16px'} 
+            fontSize={'16px'}
             placeholderTextColor={'secondary.500'}
             _selectedItem={{
               placeholderTextColor: 'secondary.50',
@@ -49,9 +50,7 @@ export function MySelect<T extends FieldValues>({
         )}
         name={name}
       />
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-        {errorMessage}
-      </FormControl.ErrorMessage>
+      {errorMessage && <ErrorMessage message={errorMessage}/>}
     </>
   )
 }
